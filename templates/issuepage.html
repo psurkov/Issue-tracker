@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ issue.title }} #{{ issue.id }}
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+      <div class="card-header">
+        Create {{ issue.author }} at {{ issue.date }}
+      </div>
+      <div class="card-body">
+          <form method="post">
+              <h4 class="card-title"><a href="issue/{{ issue.id }}" class="link-gray-dark" >{{ issue.title }}</a></h4>
+          </form>
+            <p class="card-text">{{ issue.text }}</p>
+      </div>
+    </div>
+{% endblock %}

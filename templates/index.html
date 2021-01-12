@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Issue tracker
+{% endblock %}
+
+{% block content %}
+
+    <!-- Кнопка запуска модального окна -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      Add issue
+    </button>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">New issue</h4>
+              </div>
+              <div class="modal-body">
+                <input type="text" name="title" id="title" class="form-control"><br>
+                <input name="author" id="author" class="form-control"><br>
+                <textarea name="text" id="text" class="form-control"></textarea><br>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="Save changes">
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    {% for issue in issues %}
+{#        <div class="alert alert-info">#}
+{#            <h3>{{ issue.title }}</h3>#}
+{#        </div>#}
+        <div class="card">
+          <div class="card-header">
+            Create {{ issue.author }} at {{ issue.date }}
+          </div>
+          <div class="card-body">
+              <form method="post">
+                  <h4 class="card-title"><a href="issue/{{ issue.id }}" class="link-gray-dark" >{{ issue.title }}</a></h4>
+              </form>
+{#            <h5 class="card-title">{{ issue.title }}</h5>#}
+{#            <p class="card-text">{{ issue.text }}</p>#}
+{#            <a href="#" class="btn btn-primary">More</a>#}
+          </div>
+        </div>
+    {% endfor %}
+{% endblock %}
