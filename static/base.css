@@ -7,3 +7,7 @@
     color: #24292e;
     text-decoration: none;
 }
+
+.issue-textarea-comment {
+    height: 150px;
+}

@@ -8,7 +8,7 @@
 
     <!-- Кнопка запуска модального окна -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-      Add issue
+      New issue
     </button>
 
 
@@ -20,9 +20,9 @@
                 <h4 class="modal-title" id="myModalLabel">New issue</h4>
               </div>
               <div class="modal-body">
-                <input type="text" name="title" id="title" class="form-control"><br>
-                <input name="author" id="author" class="form-control"><br>
-                <textarea name="text" id="text" class="form-control"></textarea><br>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Title"><br>
+                <input name="author" id="author" class="form-control" placeholder="Nickname"><br>
+                <textarea name="text" id="text" class="form-control issue-textarea-comment" placeholder="Leave a comment"></textarea><br>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
