@@ -5,7 +5,11 @@
 
 .link-gray-dark {
     color: #24292e;
-    text-decoration: none;
+    text-decoration: none!important;
+}
+
+#new-issue {
+    float: right!important;
 }
 
 .issue-textarea-comment {
@@ -18,7 +22,7 @@
 }
 
 .issues-upper-panel {
-    background-color: rgba(0,0,0,.03)!important;
+    /*background-color: rgba(0,0,0,.03)!important;*/
     margin-top: 1em;
     margin-bottom: 1em;
 }

@@ -5,21 +5,25 @@
 {% endblock %}
 
 {% block content %}
-
-
-
     <div class="issues-upper-panel">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <a class="btn btn-primary {% if show_open %} active {% endif %}" href="/">Open {{ open_issues }}</a>
+            <a class="btn btn-primary {% if not show_open %} active {% endif %}" href="/closed">Closed {{ closed_issues }}</a>
+        </div>
+
         <!-- Modal button -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        <button type="button" id="new-issue" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
           New issue
         </button>
+
     </div>
 
 
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" name="new-issue">
+            <form method="post" name="new-issue" action="/new-issue">
               <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">New issue</h4>
               </div>
@@ -38,16 +42,16 @@
     </div>
 
     {% for issue in issues %}
-        <a class="link-gray-dark" href="issue/{{ issue.id }}">
         <div class="card">
           <div class="card-header">
-            Create on {{ issue.comments.all()[0].pretty_date() }} by {{ issue.author }}
+            Create on {{ issue.comments.first().pretty_date() }} by {{ issue.author }}
           </div>
           <div class="card-body">
+            <a class="link-gray-dark" href="issue/{{ issue.id }}">
               <h4 class="card-title">{{ issue.title }}</h4>
+            </a>
           </div>
         </div>
-        </a>
 
     {% endfor %}
 {% endblock %}

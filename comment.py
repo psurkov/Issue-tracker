@@ -23,10 +23,15 @@ def show_issues(issue_id):
 
 @comments.route('/comment/<int:issue_id>', methods=['POST'])
 def add_comment(issue_id):
-    comment = Comment(text=request.form['text'], issue=issue.Issue.query.get(issue_id))
-    try:
-        db.session.add(comment)
-        db.session.commit()
-        return redirect('/issue/' + str(issue_id))
-    except:
+    if not issue.Issue.query.get(issue_id).is_open:
         return "Error"
+
+    comment = Comment(text=request.form['text'], issue=issue.Issue.query.get(issue_id))
+    db.session.add(comment)
+    db.session.commit()
+    if request.form['action'] == 'Comment':
+        return redirect('/issue/' + str(issue_id))
+    else:
+        issue.Issue.query.get(issue_id).is_open = False
+        db.session.commit()
+        return redirect('/')
