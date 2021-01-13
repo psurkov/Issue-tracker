@@ -7,6 +7,7 @@
 {% block content %}
 
 <h1>{{ issue.title_and_id() }}</h1>
+    {{ issue.get_styled_labels() }}
 
 {% for comment in issue.comments.all() %}
 <div class="card">
