@@ -6,10 +6,14 @@
 
 {% block content %}
 
-    <!-- Кнопка запуска модального окна -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-      New issue
-    </button>
+
+
+    <div class="issues-upper-panel">
+        <!-- Modal button -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          New issue
+        </button>
+    </div>
 
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -34,13 +38,10 @@
     </div>
 
     {% for issue in issues %}
-{#        <div class="alert alert-info">#}
-{#            <h3>{{ issue.title }}</h3>#}
-{#        </div>#}
         <a class="link-gray-dark" href="issue/{{ issue.id }}">
         <div class="card">
           <div class="card-header">
-            Create on {{ issue.pretty_date() }} by {{ issue.author }}
+            Create on {{ issue.comments.all()[0].pretty_date() }} by {{ issue.author }}
           </div>
           <div class="card-body">
               <h4 class="card-title">{{ issue.title }}</h4>

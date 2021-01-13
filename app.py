@@ -24,9 +24,6 @@ class Issue(db.Model):
     def title_and_id(self):
         return self.title + ' #' + str(self.id)
 
-    def pretty_date(self):
-        return self.timestamp.strftime("%H:%M:%S %b %d %Y")
-
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -12,3 +12,13 @@
     height: 150px;
     background-color: rgba(0,0,0,.03)!important;
 }
+
+.my-0 {
+    margin-right: auto!important;
+}
+
+.issues-upper-panel {
+    background-color: rgba(0,0,0,.03)!important;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
