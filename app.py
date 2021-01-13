@@ -12,32 +12,44 @@ class Issue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     author = db.Column(db.String(50), nullable=False)
-    text = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    comments = db.relationship('Comment', backref='issue', lazy='dynamic')
 
     def __repr__(self):
         return '<Issue %r>' % self.id
 
 
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    issue_id = db.Column(db.Integer, db.ForeignKey('issue.id'))
+
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    print(request.method)
     if request.method == 'GET':
         issues = Issue.query.all()
         return render_template('index.html', issues=issues)
     else:
-        issue = Issue(title=request.form['title'], author=request.form['author'], text=request.form['text'])
+        issue = Issue(title=request.form['title'], author=request.form['author'])
+        comment = Comment(text=request.form['text'], issue=issue)
         try:
             db.session.add(issue)
+            db.session.add(comment)
             db.session.commit()
             return redirect('/')
         except:
             return "Error"
 
-@app.route('/issue/<int:id>')
-def issue(id):
+
+@app.route('/comment/<int:issue_id>', methods=['POST'])
+def add_comment(issue_id):
+    comment = Comment(text=request.form['text'], issue=Issue.query.get(issue_id))
     try:
-        return render_template('issuepage.html', issue=Issue.query.get(id))
+        db.session.add(comment)
+        db.session.commit()
+        return redirect('/')
     except:
         return "Error"
 
