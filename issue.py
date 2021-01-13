@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
+from flask_login import login_required
+
 from app import *
 from comment import *
 
@@ -48,6 +50,7 @@ def closed_issues():
 
 
 @issues.route('/new-issue', methods=['POST'])
+@login_required
 def new_issue():
     issue = Issue(title=request.form['title'], author=request.form['author'])
     comment = Comment(text=request.form['text'], issue=issue)

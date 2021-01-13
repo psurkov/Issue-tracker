@@ -1,5 +1,7 @@
 from enum import Enum
 from flask import Blueprint, redirect
+from flask_login import login_required
+
 from app import *
 import issue
 
@@ -20,6 +22,7 @@ class Label(db.Model):
 
 
 @labels.route('/issue/<int:issue_id>/add-label/<int:label_id>', methods=['POST'])
+@login_required
 def add_label(issue_id, label_id):
     try:
         label_type = LabelTypes(label_id)

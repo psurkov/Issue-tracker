@@ -1,5 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, render_template, redirect, request
+from flask_login import login_required
+
 from app import *
 import issue
 
@@ -22,6 +24,7 @@ def show_issues(issue_id):
 
 
 @comments.route('/comment/<int:issue_id>', methods=['POST'])
+@login_required
 def add_comment(issue_id):
     if not issue.Issue.query.get(issue_id).is_open:
         return "Error"
