@@ -7,6 +7,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///issues.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+from auth import auth as auth_blueprint
+app.register_blueprint(auth_blueprint)
+
 
 class Issue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
