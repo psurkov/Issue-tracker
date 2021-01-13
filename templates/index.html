@@ -37,26 +37,16 @@
 {#        <div class="alert alert-info">#}
 {#            <h3>{{ issue.title }}</h3>#}
 {#        </div>#}
-        <a class="link-gray-dark" data-toggle="collapse" href="#collapse{{ issue.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ issue.id }}">
+        <a class="link-gray-dark" href="issue/{{ issue.id }}">
         <div class="card">
           <div class="card-header">
-            Create on {{ issue.timestamp }} by {{ issue.author }}
+            Create on {{ issue.pretty_date() }} by {{ issue.author }}
           </div>
           <div class="card-body">
               <h4 class="card-title">{{ issue.title }}</h4>
           </div>
         </div>
         </a>
-        <div class="collapse" id="collapse{{ issue.id }}">
-        {% for comment in issue.comments.all() %}
-          <div class="card card-body"> {{ comment.text }}</div>
-        {% endfor %}
-        <div class="card card-footer">
-        <form method="post" action="/comment/{{ issue.id }}">
-            <textarea name="text" class="form-control issue-textarea-comment" placeholder="Leave a comment"></textarea>
-            <input type="submit" class="btn btn-primary" value="Comment">
-        </form>
-        </div>
-        </div>
+
     {% endfor %}
 {% endblock %}

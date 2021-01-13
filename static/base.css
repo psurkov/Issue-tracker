@@ -10,10 +10,5 @@
 
 .issue-textarea-comment {
     height: 150px;
-}
-
-.card {
-}
-
-.card-body {
+    background-color: rgba(0,0,0,.03)!important;
 }

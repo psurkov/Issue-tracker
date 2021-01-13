@@ -1,20 +1,30 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{ issue.title }} #{{ issue.id }}
+    {{ issue.title_and_id() }}
 {% endblock %}
 
 {% block content %}
 
+<h1>{{ issue.title_and_id() }}</h1>
+
+{% for comment in issue.comments.all() %}
 <div class="card">
       <div class="card-header">
-        Create on {{ issue.timestamp }} by {{ issue.author }}
+        {{ comment.author }} commented on {{ comment.pretty_date() }}
       </div>
-      <div class="card-body">
-          <form method="post">
-              <h4 class="card-title"><a href="" class="link-gray-dark" >{{ issue.title }}</a></h4>
-          </form>
-            <p class="card-text">{{ issue.text }}</p>
-      </div>
-    </div>
+      <div class="card-body"> {{ comment.text }}</div>
+</div>
+{% endfor %}
+<div class="card">
+  <div class="card-header">
+    Leave a comment
+  </div>
+  <div class="card-body">
+    <form method="post" action="/comment/{{ issue.id }}">
+      <textarea name="text" class="form-control issue-textarea-comment" placeholder="Leave a comment"></textarea>
+      <input type="submit" class="btn btn-primary" value="Comment">
+    </form>
+  </div>
+</div>
 {% endblock %}
