@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_login import login_required
+from flask_login import current_user
 
 from app import *
 from comment import *
@@ -10,7 +10,7 @@ issues = Blueprint('issues', __name__)
 class Issue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
-    author = db.Column(db.String(50), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comments = db.relationship('Comment', backref='issue', lazy='dynamic')
     labels = db.relationship('Label', backref='issue', lazy='dynamic')
     is_open = db.Column(db.BOOLEAN, default=True)
@@ -52,8 +52,8 @@ def closed_issues():
 @issues.route('/new-issue', methods=['POST'])
 @login_required
 def new_issue():
-    issue = Issue(title=request.form['title'], author=request.form['author'])
-    comment = Comment(text=request.form['text'], issue=issue)
+    issue = Issue(title=request.form['title'], user=current_user)
+    comment = Comment(text=request.form['text'], issue=issue, user=current_user)
     db.session.add(issue)
     db.session.add(comment)
     db.session.commit()

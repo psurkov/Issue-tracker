@@ -19,7 +19,7 @@
 {% for comment in issue.comments.all() %}
 <div class="card">
       <div class="card-header">
-        {{ comment.author }} commented on {{ comment.pretty_date() }}
+        {{ comment.user.name }} commented on {{ comment.pretty_date() }}
       </div>
       <div class="card-body"> {{ comment.text }}</div>
 </div>

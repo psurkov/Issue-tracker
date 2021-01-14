@@ -3,8 +3,8 @@ html, body {
 }
 
 .content {
-    margin-left: 17%;
-    margin-right: 17%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .link-gray-dark {
@@ -19,6 +19,7 @@ html, body {
 .issue-textarea-comment {
     height: 150px;
     background-color: rgba(0,0,0,.03)!important;
+    margin-bottom: 10px;
 }
 
 .my-0 {
@@ -60,4 +61,11 @@ html, body {
 }
 .logged {
     margin: 0;
+}
+.card {
+    margin-top: 10px;
+}
+
+.comments-cnt {
+    float: right;
 }

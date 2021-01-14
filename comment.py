@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import Blueprint, render_template, redirect, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from app import *
 import issue
@@ -12,6 +12,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     issue_id = db.Column(db.Integer, db.ForeignKey('issue.id'))
 
     def pretty_date(self):
@@ -29,7 +30,8 @@ def add_comment(issue_id):
     if not issue.Issue.query.get(issue_id).is_open:
         return "Error"
 
-    comment = Comment(text=request.form['text'], issue=issue.Issue.query.get(issue_id))
+    comment = Comment(text=request.form['text'], issue=issue.Issue.query.get(issue_id), user=current_user)
+    print(current_user)
     db.session.add(comment)
     db.session.commit()
     if request.form['action'] == 'Comment':
