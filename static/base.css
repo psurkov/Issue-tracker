@@ -17,7 +17,7 @@ html, body {
 }
 
 .issue-textarea-comment {
-    height: 150px;
+    min-height: 150px;
     background-color: rgba(0,0,0,.03)!important;
     margin-bottom: 10px;
 }
