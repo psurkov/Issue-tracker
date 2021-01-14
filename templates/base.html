@@ -18,10 +18,10 @@
         </a>
   <nav class="my-2 my-md-0 me-md-3">
     {% if current_user.is_authenticated %}
-    <h5 class="logged">You are logged in as {{ current_user.name }} </h5>
+        <a class="btn btn-outline-primary" href="/logout">Logout {{ current_user.name }}</a>
     {% else %}
-    <a class="btn btn-outline-primary" href="/login">Login</a>
-    <a class="btn btn-outline-primary" href="/signup">Sign up</a>
+        <a class="btn btn-outline-primary" href="/login">Login</a>
+        <a class="btn btn-outline-primary" href="/signup">Sign up</a>
     {% endif %}
   </nav>
 </header>

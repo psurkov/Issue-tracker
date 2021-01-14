@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_login import UserMixin, login_user
+from flask_login import UserMixin, login_user, login_required, logout_user
 from sqlalchemy.exc import InvalidRequestError
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -58,4 +58,11 @@ def login_post():
     if not user or not check_password_hash(user.password, password):
         return redirect('/login')
     login_user(user, remember=True)
+    return redirect('/')
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
     return redirect('/')
