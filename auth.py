@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_login import UserMixin, login_user
+from sqlalchemy.exc import InvalidRequestError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import *
@@ -37,9 +38,11 @@ def signup_post():
         return redirect('/signup')
 
     user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
-
-    db.session.add(user)
-    db.session.commit()
+    try:
+        db.session.add(user)
+        db.session.commit()
+    except InvalidRequestError:
+        return "Error"
 
     return redirect('/login')
 

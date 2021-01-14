@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_login import current_user
+from sqlalchemy.exc import InvalidRequestError
 
 from app import *
 from comment import *
@@ -52,7 +53,10 @@ def closed_issues():
 def new_issue():
     issue = Issue(title=request.form['title'], user=current_user)
     comment = Comment(text=request.form['text'], issue=issue, user=current_user)
-    db.session.add(issue)
-    db.session.add(comment)
-    db.session.commit()
+    try:
+        db.session.add(issue)
+        db.session.add(comment)
+        db.session.commit()
+    except InvalidRequestError:
+        return "Error"
     return redirect('/issue/' + str(issue.id))

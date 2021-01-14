@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, render_template, redirect, request
 from flask_login import login_required, current_user
+from sqlalchemy.exc import InvalidRequestError
 
 from app import *
 import issue
@@ -32,11 +33,18 @@ def add_comment(issue_id):
 
     comment = Comment(text=request.form['text'], issue=issue.Issue.query.get(issue_id), user=current_user)
     print(current_user)
-    db.session.add(comment)
-    db.session.commit()
+    try:
+        db.session.add(comment)
+        db.session.commit()
+    except InvalidRequestError:
+        return "Error"
+
     if request.form['action'] == 'Comment':
         return redirect('/issue/' + str(issue_id))
     else:
         issue.Issue.query.get(issue_id).is_open = False
-        db.session.commit()
+        try:
+            db.session.commit()
+        except InvalidRequestError:
+            return "Error"
         return redirect('/')
