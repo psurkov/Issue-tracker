@@ -7,7 +7,6 @@
 {% block content %}
 
 <h1>{{ issue.title_and_id() }}</h1>
-{#    {{ issue.get_styled_labels() }}#}
 <h5>
   {% if issue.is_open %}
   <span class="badge badge-success">Open</span>

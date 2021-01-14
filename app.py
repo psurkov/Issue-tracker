@@ -30,17 +30,8 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    # since the user_id is just the primary key of our user table, use it in the query for the user
     return User.query.get(int(user_id))
+
 
 with app.app_context():
     db.create_all()
-
-
-#
-#
-# if __name__ == '__main__':
-#     create_app()
-
-# for label in Issue.query.all()[0].labels.all():
-#     print('<div class="' + label.type + '"></div>')

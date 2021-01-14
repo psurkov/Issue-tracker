@@ -25,10 +25,8 @@ class Issue(db.Model):
     def pretty_date(self):
         return self.timestamp.strftime("%H:%M:%S %b %d %Y")
 
-    def get_styled_labels(self):
-        pass
-        # for label in self.labels.all():
-        #     print('<div class="' + label.type + '"></div>')
+    def generate_label_divs(self):
+        return "".join([label.generate_div() for label in self.labels.all()])
 
 
 def create_index(query, show_open):

@@ -8,8 +8,12 @@ import issue
 
 class LabelTypes(Enum):
     BAG = 0
-    DOCUMENTATION = 1
-    DUPLICATE = 2
+    FEATURE = 1
+    DOCUMENTATION = 2
+    DUPLICATE = 3
+
+    def generate_div(self):
+        return '<div class="' + self.type + '">' + self.type + '</div>'
 
 
 labels = Blueprint('labels', __name__)
@@ -19,6 +23,9 @@ class Label(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.Enum(LabelTypes))
     issue_id = db.Column(db.Integer, db.ForeignKey('issue.id'))
+
+    def generate_div(self):
+        return '<div class="' + self.type + '">' + self.type + '</div>'
 
 
 @labels.route('/issue/<int:issue_id>/add-label/<int:label_id>', methods=['POST'])
