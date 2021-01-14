@@ -3,18 +3,16 @@ from flask_login import UserMixin, login_user, login_required, logout_user
 from sqlalchemy.exc import InvalidRequestError
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import *
-
 auth = Blueprint('auth', __name__)
+import app
 
-
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
-    name = db.Column(db.String(100))
-    issues = db.relationship('Issue', backref='user', lazy='dynamic')
-    comments = db.relationship('Comment', backref='user', lazy='dynamic')
+class User(UserMixin, app.db.Model):
+    id = app.db.Column(app.db.Integer, primary_key=True)
+    email = app.db.Column(app.db.String(100), unique=True)
+    password = app.db.Column(app.db.String(100))
+    name = app.db.Column(app.db.String(100))
+    issues = app.db.relationship('Issue', backref='user', lazy='dynamic')
+    comments = app.db.relationship('Comment', backref='user', lazy='dynamic')
 
 
 @auth.route('/login')
@@ -39,8 +37,8 @@ def signup_post():
 
     user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
     try:
-        db.session.add(user)
-        db.session.commit()
+        app.db.session.add(user)
+        app.db.session.commit()
     except InvalidRequestError:
         return "Error"
 
