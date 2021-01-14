@@ -2,6 +2,9 @@
 
 It's a simple issue tracker developed with Flask and SQLite. Users have to create an account. Then they can create issues, comment on them or close them if necessary.
 
+![Screen1](/images/Screen1.png)
+
+![Screen2](/images/Screen2.png)
 ## Install
 
 ```bash
