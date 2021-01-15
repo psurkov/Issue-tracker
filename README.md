@@ -9,7 +9,7 @@ It's a simple issue tracker developed with Flask and SQLite. Users have to creat
 
 ```bash
 pip3 install flask, flask_login, flask_sqlalchemy
-git clone https://github.com/psurkov/Issue-tracker
+git clone https://github.com/psurkov/Issue-tracker.git
 cd Issue-tracker
 ```
 
